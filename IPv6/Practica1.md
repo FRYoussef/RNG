@@ -11,7 +11,7 @@ Limpiamos configuraciones viejas con el comando:
 <pre><code>sudo ifovsdel</code></pre>
 
 Comprobamos que la sintaxis sea correcta con:
-pre><code>sudo ifovsparse net.conf</code></pre>
+<pre><code>sudo ifovsparse net.conf</code></pre>
 
 Creamos y lanzamos los directorios de las máquinas con:
 <pre><code>mkdir uml{1..3}
