@@ -119,5 +119,5 @@ ip -6 route add default dev extremo1</code></pre>
 ip link set dev extremo2 up mtu 1400
 ip -6 route add default dev extremo2</code></pre>
 
-De esta forma ya tenemos conectadas las máquinas 1 y 5, podemos comprobarlo si desde la máquina 5 hacemos un ping a 1.
+De esta forma ya tenemos conectadas las máquinas 1 y 5, podemos comprobarlo si desde la máquina 5, hacemos un ping a 1.
 <pre><code>ping6 -c 1 2001:db8:1::ff:fe00:1f0</code></pre>
