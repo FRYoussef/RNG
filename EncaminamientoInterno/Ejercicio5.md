@@ -213,41 +213,37 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 <pre><code>vtysh
 # configure terminal
 # interface eth0
-# ip address 192.168.3.2/24
 # no ipv6 nd suppress-ra
-# ipv6 nd prefix 2001:db8:3::/64
-# ipv6 address 2001:db8:3::ff:fe00:3/64
+# ipv6 nd prefix 2001:db8:a::/64
+# ipv6 address 2001:db8:a::ff:fe00:5/64
 # ipv6 ospf6 passive
 # exit
 # interface eth1
-# ip address 192.168.2.2/24
-# no ipv6 nd suppress-ra
-# ipv6 nd prefix 2001:db8:2::/64
-# ipv6 address 2001:db8:2::ff:fe00:2/64
-# ipv6 ospf6 passive
+# ip address 10.0.3.5/24
 # exit
 # interface eth2
-# ip address 10.0.2.2/24
+# no ipv6 nd suppress-ra
+# ipv6 nd prefix 2001:db8:8::/64
+# ipv6 address 2001:db8:8::ffff:fe00:5/64
+# ipv6 ospf6 passive
 # exit
 # interface eth3
-# ip address 10.0.3.2/24
+# ip address 10.0.0.5/24
 # exit
 # ip forwarding
 # ipv6 forwarding
 # router ospf
-# router-id 0.0.0.1
-# network 10.0.2.0/24 area 2
+# router-id 0.0.0.5
+# network 10.0.0.0/24 area 0
 # network 10.0.3.0/24 area 0
-# network 192.168.2.0/24 area 0
-# network 192.168.3.0/24 area 0
 # passive-interface eth0
-# passive-interface eth1
+# passive-interface eth2
 # exit
 # router ospf6
-# router-id 0.0.0.2
+# router-id 0.0.0.5
 # interface eth0 area 0.0.0.0
 # interface eth1 area 0.0.0.0
-# interface eth2 area 0.0.0.2
+# interface eth2 area 0.0.0.0
 # interface eth3 area 0.0.0.0
 # end
 # write
