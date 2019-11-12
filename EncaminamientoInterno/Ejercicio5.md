@@ -241,10 +241,9 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # exit
 # router ospf6
 # router-id 0.0.0.5
-# interface eth0 area 0.0.0.0
 # interface eth1 area 0.0.0.0
-# interface eth2 area 0.0.0.0
 # interface eth3 area 0.0.0.0
+# redistribute connected
 # end
 # write
 </code></pre>
@@ -260,7 +259,7 @@ Podemos comprobar la vecindad con los comandos:
 
 Y con los siguientes comandos podemos comprobar la tabla de rutas, para ver que todos los prefijos son visibles:
 <pre><code>
-# show ip route
-# show ipv6 route
+# show ip ospf route
+# show ipv6 ospf6 route
 </code></pre>
 
