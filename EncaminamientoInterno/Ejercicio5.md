@@ -43,10 +43,20 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 <pre><code>vtysh
 # configure terminal
 # interface eth0
-# ip address 192.168.1.1/24
+# ip address 10.0.0.1/24
 # exit
 # interface eth1
-# ip address 172.16.1.1/24
+# ip address 10.0.1.1/24
+# exit
+# interface eth2
+# ip address 192.168.0.1/24
+# no ipv6 nd suppress-ra
+# ipv6 nd prefix 2001:db8::/64
+# ipv6 address 2001:db8::ff:fe00:1/64
+# ipv6 ospf6 passive
+# exit
+# interface eth3
+# ip address 192.168.1.1/24
 # no ipv6 nd suppress-ra
 # ipv6 nd prefix 2001:db8:1::/64
 # ipv6 address 2001:db8:1::ff:fe00:1/64
@@ -57,14 +67,19 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # exit
 # router ospf
 # router-id 0.0.0.1
+# network 10.0.0.0/24 area 0
+# network 10.0.1.0/24 area 1
 # network 192.168.1.0/24 area 0
-# network 172.16.1.0/24 area 0
-# passive-interface eth1
+# network 192.168.0.0/24 area 0
+# passive-interface eth2
+# passive-interface eth3
 # exit
 # router ospf6
 # router-id 0.0.0.1
 # interface eth0 area 0.0.0.0
-# interface eth1 area 0.0.0.0
+# interface eth1 area 0.0.0.1
+# interface eth2 area 0.0.0.0
+# interface eth3 area 0.0.0.0
 # end
 # write
 </code></pre>
@@ -74,28 +89,43 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 <pre><code>vtysh
 # configure terminal
 # interface eth0
-# ip address 192.168.2.2/24
+# ip address 10.0.0.1/24
 # exit
 # interface eth1
-# ip address 192.168.4.2/24
+# ip address 10.0.1.1/24
 # exit
 # interface eth2
-# ip address 192.168.1.2/24
+# ip address 192.168.0.1/24
+# no ipv6 nd suppress-ra
+# ipv6 nd prefix 2001:db8::/64
+# ipv6 address 2001:db8::ff:fe00:1/64
+# ipv6 ospf6 passive
+# exit
+# interface eth3
+# ip address 192.168.1.1/24
+# no ipv6 nd suppress-ra
+# ipv6 nd prefix 2001:db8:1::/64
+# ipv6 address 2001:db8:1::ff:fe00:1/64
+# ipv6 ospf6 passive
 # exit
 # ip forwarding
 # ipv6 forwarding
 # exit
 # router ospf
-# router-id 0.0.0.2
+# router-id 0.0.0.1
+# network 10.0.0.0/24 area 0
+# network 10.0.1.0/24 area 1
 # network 192.168.1.0/24 area 0
-# network 192.168.2.0/24 area 0
-# network 192.168.4.0/24 area 0
+# network 192.168.0.0/24 area 0
+# passive-interface eth2
+# passive-interface eth3
 # exit
 # router ospf6
-# router-id 0.0.0.2
+# router-id 0.0.0.1
 # interface eth0 area 0.0.0.0
-# interface eth1 area 0.0.0.0
+# interface eth1 area 0.0.0.1
 # interface eth2 area 0.0.0.0
+# interface eth3 area 0.0.0.0
 # end
 # write
 </code></pre>
