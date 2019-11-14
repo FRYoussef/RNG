@@ -40,6 +40,8 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 
 **UML1:**
 
+Configuramos el área 1 como totally-stub para ipv4.
+
 <pre><code>vtysh
 # configure terminal
 # interface eth0
@@ -72,6 +74,7 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # network 192.168.0.0/24 area 0
 # passive-interface eth2
 # passive-interface eth3
+# area 1 stub no-summary
 # exit
 # router ospf6
 # router-id 0.0.0.1
@@ -84,6 +87,8 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 </code></pre>
 
 **UML2:**
+
+También vamos a definir el área 2 como Stub para ipv4.
 
 <pre><code>vtysh
 # configure terminal
@@ -117,6 +122,7 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # network 192.168.3.0/24 area 0
 # passive-interface eth0
 # passive-interface eth1
+# area 2 stub
 # exit
 # router ospf6
 # router-id 0.0.0.2
@@ -129,6 +135,8 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 </code></pre>
 
 **UML3:**
+
+Definimos el área 2 como Stub para ipv4.
 
 <pre><code>vtysh
 # configure terminal
@@ -158,6 +166,7 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # network 192.168.5.0/24 area 2
 # passive-interface eth2
 # passive-interface eth1
+# area 2 stub
 # exit
 # router ospf6
 # router-id 0.0.0.3
@@ -169,6 +178,8 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 </code></pre>
 
 **UML4:**
+
+Vamos a configurar el router como totally-stub en ipv4.
 
 <pre><code>vtysh
 # configure terminal
@@ -198,6 +209,7 @@ Lo primero es activar los demonios zebra de ospf y ospf6. Esto es, colocando los
 # network 192.168.7.0/24 area 1
 # passive-interface eth2
 # passive-interface eth1
+# area 1 stub
 # exit
 # router ospf6
 # router-id 0.0.0.4
