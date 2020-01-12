@@ -81,10 +81,30 @@ Después hay que levantar los interfaces y asignar direcciones a las máquinas.
 # interface eth2
 # ip address 10.0.35.3/24
 # exit
+# ip as-path access-list fav permit ^65515_
+# ip as-path access-list any permit .*
+# ip as-path access-list as65513 permit ^65513_
+# ip as-path access-list as65516 permit ^65516_
+# route-map fav-link permit 10
+# match as-path fav
+# set local-preference 200
+# exit
+# route-map fav-link permit 20
+# match as-path any
+# exit
+# route-map prepend-path permit 10
+# match as-path as65513
+# match as-path as65516
+# set as-path prepend 65514 65514 65514
+# set metric 100
+# exit
 # router bgp 65514
 # neighbor 10.0.23.2 remote-as 65513
+# neighbor 10.0.23.2 route-map prepend-path out
 # neighbor 10.0.34.4 remote-as 65515
+# neighbor 10.0.34.4 route-map fav-link in
 # neighbor 10.0.35.5 remote-as 65516
+# neighbor 10.0.35.5 route-map prepend-path out
 # network 172.16.3.0/24
 # end
 # write</code></pre>
@@ -122,3 +142,7 @@ Después hay que levantar los interfaces y asignar direcciones a las máquinas.
 # network 172.16.5.0/24
 # end
 # write</code></pre>
+
+Se puede comprobar que la ruta para alcanzar las redes es la correcta, usa los siguientes comandos en las máquinas 3 y 5.
+<pre><code># clear bgp *
+# show ip bgp</code></pre>
