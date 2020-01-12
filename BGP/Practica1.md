@@ -23,3 +23,27 @@ lanza {1..4}</code></pre>
 
 ## **Configuración BGP**
 
+Lo primero es activar el demonio zebra de bgpd en todas las máquinas. Esto es, colocando el flag a 'yes' bgpd, editando el archivo /etc/quagga/daemons. Despues hacemos restart del demonio zebra con:
+<pre><code>systemctl restart quagga</code></pre>
+
+Después hay que levantar los interfaces y asignar direcciones a las máquinas.
+
+**UML1**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.0.1/24
+# exit
+# router bgp 65512
+# neighbor 10.0.0.2 remote-as 65513
+# network 10.12.0.0/16
+# network 172.16.12.0/24
+# network 192.168.0.0/23
+# address-family ipv6
+# neighbor 10.0.0.2 activate
+# network 2001:db8:12::/52
+# network 2001:db8:12:1000::/52
+# network 2001:db8:12:2000::/52
+# end
+# write</code></pre>
