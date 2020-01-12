@@ -28,3 +28,97 @@ Lo primero es activar el demonio zebra de bgpd en todas las máquinas. Esto es, 
 <pre><code>systemctl restart quagga</code></pre>
 
 Después hay que levantar los interfaces y asignar direcciones a las máquinas.
+
+**UML1**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.12.1/24
+# exit
+# interface eth1
+# ip address 10.0.15.1/24
+# exit
+# router bgp 65512
+# neighbor 10.0.12.2 remote-as 65513
+# neighbor 10.0.15.5 remote-as 65516
+# network 172.16.1.0/24
+# end
+# write</code></pre>
+
+**UML2**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.24.2/24
+# exit
+# interface eth1
+# ip address 10.0.23.2/24
+# exit
+# interface eth2
+# ip address 10.0.12.2/24
+# exit
+# router bgp 65513
+# neighbor 10.0.24.4 remote-as 65515
+# neighbor 10.0.23.3 remote-as 65514
+# neighbor 10.0.12.1 remote-as 65512
+# network 172.16.2.0/24
+# end
+# write</code></pre>
+
+
+**UML3**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.23.3/24
+# exit
+# interface eth1
+# ip address 10.0.34.3/24
+# exit
+# interface eth2
+# ip address 10.0.35.3/24
+# exit
+# router bgp 65514
+# neighbor 10.0.23.2 remote-as 65513
+# neighbor 10.0.34.4 remote-as 65515
+# neighbor 10.0.35.5 remote-as 65516
+# network 172.16.3.0/24
+# end
+# write</code></pre>
+
+**UML4**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.34.4/24
+# exit
+# interface eth1
+# ip address 10.0.24.4/24
+# exit
+# router bgp 65515
+# neighbor 10.0.24.2 remote-as 65513
+# neighbor 10.0.34.3 remote-as 65514
+# network 172.16.4.0/24
+# end
+# write</code></pre>
+
+**UML5**
+
+<pre><code>vtysh
+# configure terminal
+# interface eth0
+# ip address 10.0.35.5/24
+# exit
+# interface eth1
+# ip address 10.0.15.5/24
+# exit
+# router bgp 65516
+# neighbor 10.0.35.3 remote-as 65514
+# neighbor 10.0.15.1 remote-as 65512
+# network 172.16.5.0/24
+# end
+# write</code></pre>
