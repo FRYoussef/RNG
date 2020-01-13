@@ -263,3 +263,34 @@ ip -6 route add default dev extremo2</code></pre>
 
 Se puede comprobar que efectivamente funciona con un ping de uml1 a uml5:
 <pre><code>ping6 -c 1 2001:db8:5::5</code></pre>
+
+## Filtrado de rutas BGP
+
+Se toman como enlaces de backup son los que unen uml1-uml2 y uml2-uml4.
+
+**UML2:**
+
+<pre><code># ip as-path access-list backup1 permit 10.0.12.1/24
+# ip as-path access-list backup2 permit 10.0.24.4/24
+# ip as-path access-list any permit .*
+# ip as-path access-list main permit 10.0.23.3/24
+# route-map main-link permit 10
+# match ip address main
+# set local-preference 200
+# exit
+# route-map main-link permit 20
+# match ip address any
+# exit
+# route-map backup-link permit 10
+# match ip address backup1
+# match ip address backup2
+# set as-path prepend 65513 65513 65513 65513
+# set metric 100
+# exit
+# router bgp 65513
+# neighbor 10.0.12.1 route-map backup-link out
+# neighbor 10.0.24.4 route-map backup-link out
+# neighbor 10.0.23.3 route-map main-link in
+# end
+# write</code></pre>
+
