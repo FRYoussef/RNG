@@ -166,3 +166,60 @@ Lo primero es activar los demonios zebra de ospf(uml{2..5}), ospf6(uml{4..5}) y 
 Podemos comprobar que la configuración es correcta, ya que solo se comparten direcciones dentro de las áreas, y no fuera.
 
 ## Configuración del encaminamiento exterior (BGP)
+
+**UML1:**
+
+<pre><code># router bgp 65512
+# neighbor 10.0.12.2 remote-as 65513
+# neighbor 10.0.13.3 remote-as 65513
+# network 172.16.1.0/24
+# end
+# write</code></pre>
+
+**UML2:**
+
+<pre><code># router bgp 65513
+# neighbor 10.0.12.1 remote-as 65512
+# neighbor 10.0.23.3 remote-as 65513
+# neighbor 10.0.24.4 remote-as 65514
+# network 172.16.2.0/24
+# end
+# write</code></pre>
+
+
+**UML3:**
+
+<pre><code># router bgp 65513
+# neighbor 10.0.13.1 remote-as 65512
+# neighbor 10.0.23.2 remote-as 65513
+# neighbor 10.0.35.5 remote-as 65514
+# network 172.16.3.0/24
+# end
+# write</code></pre>
+
+**UML4:**
+
+<pre><code># router bgp 65514
+# neighbor 10.0.24.2 remote-as 65513
+# neighbor 10.0.45.5 remote-as 65514
+# network 172.16.4.0/24
+# address-family ipv6
+# neighbor 10.0.45.5 activate
+# network 2001:db8:4::/64
+# end
+# write</code></pre>
+
+
+**UML5:**
+
+<pre><code># router bgp 65514
+# neighbor 10.0.35.3 remote-as 65513
+# neighbor 10.0.45.4 remote-as 65514
+# network 172.16.5.0/24
+# address-family ipv6
+# neighbor 10.0.45.4 activate
+# network 2001:db8:5::/64
+# end
+# write</code></pre>
+
+Ahora podemos comprobar que todas las redes son alcanzables.
