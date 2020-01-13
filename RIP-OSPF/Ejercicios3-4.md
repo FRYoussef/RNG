@@ -1,5 +1,5 @@
-![](EncaminamientoInterno/images/ej3-OSPF.png)
-![](EncaminamientoInterno/images/ej4-OSPF.png)
+![](images/ej3-OSPF.png)
+![](images/ej4-OSPF.png)
 
 Definimos la topología:
 
