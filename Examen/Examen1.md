@@ -173,6 +173,8 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.12.2 remote-as 65513
 # neighbor 10.0.13.3 remote-as 65513
 # network 172.16.1.0/24
+# network 10.0.12.0/24
+# network 10.0.13.0/24
 # end
 # write</code></pre>
 
@@ -183,6 +185,9 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.23.3 remote-as 65513
 # neighbor 10.0.24.4 remote-as 65514
 # network 172.16.2.0/24
+# network 10.0.12.0/24
+# network 10.0.23.0/24
+# network 10.0.24.0/24
 # end
 # write</code></pre>
 
@@ -194,6 +199,9 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.23.2 remote-as 65513
 # neighbor 10.0.35.5 remote-as 65514
 # network 172.16.3.0/24
+# network 10.0.13.0/24
+# network 10.0.23.0/24
+# network 10.0.35.0/24
 # end
 # write</code></pre>
 
@@ -203,6 +211,8 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.24.2 remote-as 65513
 # neighbor 10.0.45.5 remote-as 65514
 # network 172.16.4.0/24
+# network 10.0.24.0/24
+# network 10.0.45.0/24
 # address-family ipv6
 # neighbor 10.0.45.5 activate
 # network 2001:db8:4::/64
@@ -216,6 +226,8 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.35.3 remote-as 65513
 # neighbor 10.0.45.4 remote-as 65514
 # network 172.16.5.0/24
+# network 10.0.45.0/24
+# network 10.0.35.0/24
 # address-family ipv6
 # neighbor 10.0.45.4 activate
 # network 2001:db8:5::/64
@@ -223,3 +235,31 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # write</code></pre>
 
 Ahora podemos comprobar que todas las redes son alcanzables.
+
+## Túnel 6in4 entre uml1 y uml5
+
+
+**UML1:**
+
+<pre><code># interface eth2
+# no ipv6 nd suppress-ra
+# ipv6 nd prefix 2001:db8:1::/64
+# ipv6 address 2001:db8:1::1/64
+# exit
+# ipv6 forwarding
+# end
+# write
+# quit
+ip tunnel add extremo1 mode sit remote 10.0.35.5
+ip link set dev extremo1 up mtu 1400
+ip -6 route add default dev extremo1</code></pre>
+
+**UML5:**
+
+<pre><code># quit
+ip tunnel add extremo2 mode sit remote 10.0.13.1
+ip link set dev extremo2 up mtu 1400
+ip -6 route add default dev extremo2</code></pre>
+
+Se puede comprobar que efectivamente funciona con un ping de uml1 a uml5:
+<pre><code>ping6 -c 1 2001:db8:5::5</code></pre>
