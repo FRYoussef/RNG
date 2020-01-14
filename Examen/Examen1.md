@@ -258,13 +258,11 @@ Se toman como enlaces de backup son los que unen uml1-uml2 y uml2-uml4.
 
 **UML2:**
 
-<pre><code># ip as-path access-list backup permit 10.0.12.1/24
-# ip as-path access-list backup permit 10.0.24.4/24
+<pre><code>
 # route-map main-link permit 10
 # set local-preference 200
 # exit
 # route-map backup-link permit 10
-# match ip address backup
 # set as-path prepend 65513 65513 65513 65513
 # set metric 100
 # exit
