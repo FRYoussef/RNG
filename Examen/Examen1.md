@@ -173,8 +173,6 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.12.2 remote-as 65513
 # neighbor 10.0.13.3 remote-as 65513
 # network 172.16.1.0/24
-# network 10.0.12.0/24
-# network 10.0.13.0/24
 # end
 # write</code></pre>
 
@@ -185,9 +183,6 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.23.3 remote-as 65513
 # neighbor 10.0.24.4 remote-as 65514
 # network 172.16.2.0/24
-# network 10.0.12.0/24
-# network 10.0.23.0/24
-# network 10.0.24.0/24
 # end
 # write</code></pre>
 
@@ -199,9 +194,6 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.23.2 remote-as 65513
 # neighbor 10.0.35.5 remote-as 65514
 # network 172.16.3.0/24
-# network 10.0.13.0/24
-# network 10.0.23.0/24
-# network 10.0.35.0/24
 # end
 # write</code></pre>
 
@@ -211,8 +203,6 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.24.2 remote-as 65513
 # neighbor 10.0.45.5 remote-as 65514
 # network 172.16.4.0/24
-# network 10.0.24.0/24
-# network 10.0.45.0/24
 # address-family ipv6
 # neighbor 10.0.45.5 activate
 # network 2001:db8:4::/64
@@ -226,8 +216,6 @@ Podemos comprobar que la configuración es correcta, ya que solo se comparten di
 # neighbor 10.0.35.3 remote-as 65513
 # neighbor 10.0.45.4 remote-as 65514
 # network 172.16.5.0/24
-# network 10.0.45.0/24
-# network 10.0.35.0/24
 # address-family ipv6
 # neighbor 10.0.45.4 activate
 # network 2001:db8:5::/64
@@ -273,12 +261,7 @@ Se toman como enlaces de backup son los que unen uml1-uml2 y uml2-uml4.
 <pre><code># ip as-path access-list backup permit 10.0.12.1/24
 # ip as-path access-list backup permit 10.0.24.4/24
 # route-map main-link permit 10
-# match origin igp
 # set local-preference 200
-# exit
-# route-map main-link permit 20
-# match origin egp
-# match origin incomplete
 # exit
 # route-map backup-link permit 10
 # match ip address backup
