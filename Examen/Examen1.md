@@ -238,14 +238,14 @@ Ahora podemos comprobar que todas las redes son alcanzables.
 # end
 # write
 # quit
-ip tunnel add extremo1 mode sit remote 10.0.35.5
+ip tunnel add extremo1 mode sit local 172.16.1.1 remote 172.16.5.5
 ip link set dev extremo1 up mtu 1400
 ip -6 route add default dev extremo1</code></pre>
 
 **UML5:**
 
 <pre><code># quit
-ip tunnel add extremo2 mode sit remote 10.0.13.1
+ip tunnel add extremo2 mode sit local 172.16.5.5 remote 172.16.1.1
 ip link set dev extremo2 up mtu 1400
 ip -6 route add default dev extremo2</code></pre>
 
